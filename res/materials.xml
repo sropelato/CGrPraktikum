@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<materials>
+	<material name="White" default="true">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="FFFFFF"/>
+		</attributes>
+	</material>
+	<material name="DarkGrey">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="333333"/>
+		</attributes>
+	</material>
+	<material name="DarkRed">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="770000"/>
+		</attributes>
+	</material>
+</materials>
+
