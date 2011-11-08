@@ -24,25 +24,6 @@ Node.prototype.draw = function(parentMVMatrix)
 	});
 }
 
-/*Node.prototype.draw = function()
-{
-	Mp3D.pushMV();
-	
-	mat4.multiply(Mp3D.mvMatrix, this.transformation, Mp3D.mvMatrix);
-	
-	if(this.model)
-	{
-		this.model.draw();
-	}
-	
-	$.each(this.children, function()
-	{
-		this.draw();
-	});
-	
-	Mp3D.popMV();
-}*/
-
 Node.prototype.append = function(node)
 {
 	node.parent = this;
@@ -61,7 +42,10 @@ Node.prototype.resetTransformation = function()
 
 Node.prototype.translate = function(vector)
 {
-	mat4.translate(this.transformation, vector);
+	var newTransformation = mat4.create();
+	mat4.identity(newTransformation);
+	mat4.translate(newTransformation, vector);
+	mat4.multiply(newTransformation, this.transformation, this.transformation);
 }
 
 Node.prototype.scale = function(vector)
@@ -86,3 +70,48 @@ Node.prototype.getAbsoluteTransformation = function()
 	}
 	return absoluteTransformation;
 }
+
+Node.prototype.getPosition = function()
+{
+	var position = vec3.create();
+	var transformationMatrix = this.transformation;
+	position[0] = transformationMatrix[12];
+	position[1] = transformationMatrix[13];
+	position[2] = transformationMatrix[14];
+	return position;
+}
+
+Node.prototype.getAbsolutePosition = function()
+{
+	var position = vec3.create();
+	var transformationMatrix = this.getAbsoluteTransformation();
+	position[0] = transformationMatrix[12];
+	position[1] = transformationMatrix[13];
+	position[2] = transformationMatrix[14];
+	return position;
+}
+
+Node.prototype.getScale = function()
+{
+	var scale = vec3.create();
+	var transformationMatrix = this.transformation;
+	
+	scale[0] = Math.sqrt(Math.pow(transformationMatrix[0], 2) + Math.pow(transformationMatrix[1], 2) + Math.pow(transformationMatrix[2], 2));
+	scale[1] = Math.sqrt(Math.pow(transformationMatrix[4], 2) + Math.pow(transformationMatrix[5], 2) + Math.pow(transformationMatrix[6], 2));
+	scale[2] = Math.sqrt(Math.pow(transformationMatrix[8], 2) + Math.pow(transformationMatrix[9], 2) + Math.pow(transformationMatrix[10], 2));
+	
+	return scale;	
+}
+
+Node.prototype.getAbsoluteScale = function()
+{
+	var scale = vec3.create();
+	var transformationMatrix = this.getAbsoluteTransformation();
+	
+	scale[0] = Math.sqrt(Math.pow(transformationMatrix[0], 2) + Math.pow(transformationMatrix[1], 2) + Math.pow(transformationMatrix[2], 2));
+	scale[1] = Math.sqrt(Math.pow(transformationMatrix[4], 2) + Math.pow(transformationMatrix[5], 2) + Math.pow(transformationMatrix[6], 2));
+	scale[2] = Math.sqrt(Math.pow(transformationMatrix[8], 2) + Math.pow(transformationMatrix[9], 2) + Math.pow(transformationMatrix[10], 2));
+	
+	return scale;	
+}
+

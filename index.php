@@ -19,16 +19,17 @@
 		<script type="text/javascript" src="js/mp3d/SimpleColorMaterial.js"></script>
 		<script type="text/javascript" src="js/mp3d/SimpleTextureMaterial.js"></script>
 		<script type="text/javascript" src="js/scene1.js"></script>
+		<script type="text/javascript" src="js/scene2.js"></script>
 	</head>
 	<body>
 		<div id="header"></div>
 		<div id="body">
 			<div id="navigation">
-				<a href="index.php?content=scene1">1 - 3</a>
+				<a href="index.php?content=scene1">1</a>
 				&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="index.php?content=scene2">Scene 2</a>
+				<a href="index.php?content=scene2">2</a>
 				&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-				<a href="index.php?content=scene3">Scene 3</a>
+				<a href="index.php?content=scene3">3</a>
 			</div>
 			<div id="content">
 				<?php

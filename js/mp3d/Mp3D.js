@@ -282,6 +282,11 @@ Mp3D.degToRad = function(degAngle)
 	return (degAngle/180*Math.PI);
 }
 
+Mp3D.radToDeg = function(radAngle)
+{
+	return (radAngle*180/Math.PI);
+}
+
 Mp3D.error = function(text)
 {
 	$("#error").append("<p>"+text+"</p>");
