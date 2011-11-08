@@ -18,6 +18,12 @@
 			<string name="color" value="770000"/>
 		</attributes>
 	</material>
+	<material name="DarkBlue">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="000055"/>
+		</attributes>
+	</material>
 	<material name="Earth">
 		<class name="SimpleTextureMaterial"/>
 		<attributes>

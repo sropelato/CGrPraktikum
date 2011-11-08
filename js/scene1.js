@@ -43,11 +43,11 @@ $(document).ready(function()
 			// add earth to scene
 			earthNode = MojitoLoader.parseMojito(ResourceManager.data.earth);
 			mat4.translate(earthNode.transformation, [0, 0, -20]);
-			mat4.scale(earthNode.transformation, [0.05, 0.05, 0.05]);
+			mat4.scale(earthNode.transformation, [0.08, 0.08, 0.08]);
 			world.nodes.push(earthNode);
 			
 			// adjust camera direction
-			cameraNode.translate([0, 5, 0]);
+			cameraNode.translate([0, 15, 0]);
 			Mp3D.activeWorld.camera.lookAt(earthNode.getAbsolutePosition());
 				
 			startGame();

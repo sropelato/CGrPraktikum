@@ -29,7 +29,7 @@ $(document).ready(function()
 			
 			// create light source
 			var light = new Light();
-			light.direction = [-1, -1, -4];
+			light.direction = [-1, -1, 0.2];
 			light.ambientColor = [0.1, 0.1, 0.1];
 			light.diffuseColor = [1.0, 1.0, 1.0];
 			light.specularColor = [1.0, 1.0, 1.0];
