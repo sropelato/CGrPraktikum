@@ -192,17 +192,17 @@ $(document).ready(function()
 			
 			earthOffsetAngle += Mp3D.degToRad(5) * elapsed;
 			
-			var earthOffsetX = Math.sin(earthOffsetAngle) * 20;
-			var earthOffsetZ = Math.cos(earthOffsetAngle) * 20;
+			var earthOffsetX = Math.sin(earthOffsetAngle) * 10;
+			var earthOffsetZ = Math.cos(earthOffsetAngle) * 10;
 			
 			earthOrbitNode.resetTransformation();
 			earthOrbitNode.translate([earthOffsetX, 0, earthOffsetZ]);
 			earthOrbitNode.rotate(Mp3D.degToRad(30), [1, 0, 0]);
 			
-			moonOrbitNode.rotate(Mp3D.degToRad(18) * elapsed, [0, 1, 0]);
+			moonOrbitNode.rotate(Mp3D.degToRad(40) * elapsed, [0, 1, 0]);
 			
 			sunNode.rotate(Mp3D.degToRad(1) * elapsed, [0, 1, 0]);
-			earthNode.rotate(Mp3D.degToRad(9) * elapsed, [0, 1, 0]);
+			earthNode.rotate(Mp3D.degToRad(20) * elapsed, [0, 1, 0]);
 					
 			Mp3D.drawScene();
 			requestAnimFrame(main);
