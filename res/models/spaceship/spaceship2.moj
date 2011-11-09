@@ -18,13 +18,13 @@
 			<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 -0.0 -0.0 -1.0 -0.0 0.0 0.0 0.0 1.0</transformation>
 		</polygon>
 		<null>
+			<material>White</material>
 			<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 -0.0 -0.0 -1.0 -0.0 0.0 0.0 0.0 1.0</transformation>
 			<children>
 				<null>
 					<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</transformation>
 					<children>
 						<null>
-							<material>White</material>
 							<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</transformation>
 							<children>
 								<polygon>

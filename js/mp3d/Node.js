@@ -8,6 +8,19 @@ function Node()
 	mat4.identity(this.transformation);
 }
 
+Node.prototype.assignMaterial = function(material)
+{
+	if(this.model)
+	{
+		this.model.setMaterial(material);
+	}
+	
+	$.each(this.children, function()
+	{
+		this.assignMaterial(material);
+	});
+}
+
 Node.prototype.draw = function(parentMVMatrix)
 {	
 	var mvMatrix = mat4.create();

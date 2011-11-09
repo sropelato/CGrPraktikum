@@ -21,8 +21,10 @@ $(document).ready(function()
 			ResourceManager.addRequest("sun", "res/models/universe/sun.moj", "xml");
 			ResourceManager.addRequest("earth", "res/models/universe/earth.moj", "xml");
 			ResourceManager.addRequest("moon", "res/models/universe/moon.moj", "xml");
+			ResourceManager.addRequest("saturn", "res/models/universe/saturn.moj", "xml");
+			ResourceManager.addRequest("saturnMoon", "res/models/universe/moon.moj", "xml");
 			ResourceManager.addRequest("skybox", "res/models/skybox/skybox1.moj", "xml");
-			ResourceManager.addDependencies(["sun", "earth", "skybox"], setupScene);
+			ResourceManager.addDependencies(["sun", "earth", "moon", "saturn", "saturnMoon", "skybox"], setupScene);
 			ResourceManager.loadAll();
 		}
 		
@@ -52,6 +54,8 @@ $(document).ready(function()
 			sunNode.scale([0.05, 0.05, 0.05]);
 			world.nodes.push(sunNode);
 			
+			/* EARTH */
+			
 			// create earth orbit node
 			earthOrbitNode = new Node();
 			earthOrbitNode.translate([10, 0, 0]);
@@ -71,6 +75,29 @@ $(document).ready(function()
 			moonNode.scale([0.002, 0.002, 0.002]);
 			moonNode.translate([2, 0, 0]);
 			moonOrbitNode.append(moonNode);
+			
+			/* SATURN */
+			
+			// create saturn orbit node
+			saturnOrbitNode = new Node();
+			saturnOrbitNode.translate([10, 0, 0]);
+			world.nodes.push(saturnOrbitNode);
+			
+			// add saturn to scene
+			saturnNode = MojitoLoader.parseMojito(ResourceManager.data.saturn);
+			mat4.scale(saturnNode.transformation, [0.02, 0.02, 0.02]);
+			saturnOrbitNode.append(saturnNode);
+			
+			// create saturn moon orbit node
+			saturnMoonOrbitNode = new Node();
+			saturnOrbitNode.append(saturnMoonOrbitNode);
+			
+			// create saturn moon node
+			saturnMoonNode = MojitoLoader.parseMojito(ResourceManager.data.saturnMoon);
+			saturnMoonNode.scale([0.003, 0.003, 0.003]);
+			saturnMoonNode.translate([-3, 3, 3]);
+			saturnMoonOrbitNode.append(saturnMoonNode);
+			
 			
 			// adjust camera
 			cameraNode.translate([0, 0, 20]);		
@@ -112,7 +139,8 @@ $(document).ready(function()
 			camYaw = 0;
 			camPitch = 0;
 			
-			earthOffsetAngle = 0;
+			earthOffsetAngle = Mp3D.degToRad(-10);
+			saturnOffsetAngle = Mp3D.degToRad(130);
 			
 			main();
 		}
@@ -190,20 +218,30 @@ $(document).ready(function()
 				Mp3D.activeWorld.camera.node.translate2([0, 10 * elapsed, 0]);
 			}
 			
-			earthOffsetAngle += Mp3D.degToRad(5) * elapsed;
+			var speedFactor = 1; // 1 sec = {speedFactor} earth day(s)
+			elapsed *= speedFactor;
 			
-			var earthOffsetX = Math.sin(earthOffsetAngle) * 10;
+			earthOffsetAngle += Mp3D.degToRad(1/365*360) * elapsed;
+			saturnOffsetAngle += Mp3D.degToRad(0.5/365*360) * elapsed;
+			
+			var earthOffsetX = Math.sin(earthOffsetAngle) * 15;
 			var earthOffsetZ = Math.cos(earthOffsetAngle) * 10;
+			
+			var saturnOffsetX = Math.sin(saturnOffsetAngle) * 30;
+			var saturnOffsetZ = Math.cos(saturnOffsetAngle) * 35;
 			
 			earthOrbitNode.resetTransformation();
 			earthOrbitNode.translate([earthOffsetX, 0, earthOffsetZ]);
-			earthOrbitNode.rotate(Mp3D.degToRad(30), [1, 0, 0]);
+			earthOrbitNode.rotate(Mp3D.degToRad(15), [1, 0, 0]);
+			earthNode.rotate(Mp3D.degToRad(1*360) * elapsed, [0, 1, 0]);
+			moonOrbitNode.rotate(Mp3D.degToRad(1/27*360) * elapsed, [0, 1, 0]);
 			
-			moonOrbitNode.rotate(Mp3D.degToRad(40) * elapsed, [0, 1, 0]);
-			
-			sunNode.rotate(Mp3D.degToRad(1) * elapsed, [0, 1, 0]);
-			earthNode.rotate(Mp3D.degToRad(20) * elapsed, [0, 1, 0]);
-					
+			saturnOrbitNode.resetTransformation();
+			saturnOrbitNode.translate([saturnOffsetX, 0, saturnOffsetZ]);
+			saturnOrbitNode.rotate(Mp3D.degToRad(24), [1, 0, 0]);
+			saturnNode.rotate(Mp3D.degToRad(2*360) * elapsed, [0, 1, 0]);
+			saturnMoonOrbitNode.rotate(Mp3D.degToRad(1/50*360) * elapsed, [1, 1, 1]);
+
 			Mp3D.drawScene();
 			requestAnimFrame(main);
 		}

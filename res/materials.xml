@@ -6,10 +6,22 @@
 			<string name="color" value="FFFFFF"/>
 		</attributes>
 	</material>
+	<material name="Grey">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="999999"/>
+		</attributes>
+	</material>
 	<material name="DarkGrey">
 		<class name="SimpleColorMaterial"/>
 		<attributes>
 			<string name="color" value="333333"/>
+		</attributes>
+	</material>
+	<material name="Red">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="FF0000"/>
 		</attributes>
 	</material>
 	<material name="DarkRed">
@@ -24,6 +36,13 @@
 			<string name="color" value="000055"/>
 		</attributes>
 	</material>
+	<material name="Shadow">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="111111"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
 	<material name="Skybox1">
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
@@ -35,6 +54,18 @@
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/universe/earth.png"/>
+		</attributes>
+	</material>
+	<material name="Saturn">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/universe/saturn.png"/>
+		</attributes>
+	</material>
+	<material name="SaturnRing">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/universe/saturn_ring.png"/>
 		</attributes>
 	</material>
 	<material name="Sun">

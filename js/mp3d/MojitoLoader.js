@@ -193,6 +193,8 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 				throw "no default material set.";
 			}
 		}
+		
+		parentProperties.material = material;
 	
 		// parse children
 		var childrenNode = $(contentNode).children("children")[0];
@@ -200,7 +202,7 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 		{
 			$.each($(childrenNode).children(), function()
 			{
-				node.append(MojitoLoader.parseNode(this, material));
+				node.append(MojitoLoader.parseNode(this, parentProperties));
 			});
 		}
 	}

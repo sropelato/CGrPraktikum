@@ -21,6 +21,7 @@
 		<script type="text/javascript" src="js/scene1.js"></script>
 		<script type="text/javascript" src="js/scene2.js"></script>
 		<script type="text/javascript" src="js/scene3.js"></script>
+		<script type="text/javascript" src="js/scene4.js"></script>
 	</head>
 	<body>
 		<div id="header"></div>
@@ -31,6 +32,8 @@
 				<a href="index.php?content=scene2">2</a>
 				&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 				<a href="index.php?content=scene3">3</a>
+				&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+				<a href="index.php?content=scene4">4</a>
 			</div>
 			<div id="content">
 				<?php
@@ -47,6 +50,9 @@
 							break;
 						case "scene3":
 							include("scene3.php");
+							break;
+						case "scene4":
+							include("scene4.php");
 							break;
 						default:
 							$error_text = "The page you're looking for does not exist.";
