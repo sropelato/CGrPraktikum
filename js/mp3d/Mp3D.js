@@ -263,14 +263,14 @@ Mp3D.drawScene = function()
     
     $.each(Mp3D.activeWorld.lights, function()
 	{
-	    // set light direction relative to camera		
+	    // set light direction relative to camera
 		mat4.multiplyVec3(mat3.toMat4(Mp3D.normalMatrix), Mp3D.activeWorld.lights[0].direction, Mp3D.activeWorld.lights[0].relativeDirection);
+		
+		// calculate light position relative to camera
+		mat4.multiplyVec3(Mp3D.mvMatrix, Mp3D.activeWorld.lights[0].position, Mp3D.activeWorld.lights[0].relativePosition);
 	});
     
-    // modify light 
-	var newDirection = [];		
-	mat4.multiplyVec3(mat3.toMat4(Mp3D.normalMatrix), Mp3D.activeWorld.lights[0].direction, newDirection);
-			
+  	
 	$.each(Mp3D.activeWorld.nodes, function()
 	{
 		this.draw(Mp3D.mvMatrix);

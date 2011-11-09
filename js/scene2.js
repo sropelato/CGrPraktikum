@@ -73,10 +73,8 @@ $(document).ready(function()
 				elapsed = 0;
 		
 			timeBefore = timeNow;
-		
-			//spaceshipNode.rotate(Mp3D.degToRad(30)*elapsed, [0, 1, 0]);
-			spaceshipNode.translate([0, 0, 20 * elapsed]);
-			
+
+			spaceshipNode.translate([0, 0, 20 * elapsed]);			
 			Mp3D.activeWorld.camera.lookAt(spaceshipNode.getAbsolutePosition());
 		
 			Mp3D.drawScene();

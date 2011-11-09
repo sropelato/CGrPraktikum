@@ -48,6 +48,11 @@ Node.prototype.translate = function(vector)
 	mat4.multiply(newTransformation, this.transformation, this.transformation);
 }
 
+Node.prototype.translate2 = function(vector)
+{
+	mat4.translate(this.transformation, vector);
+}
+
 Node.prototype.scale = function(vector)
 {
 	mat4.scale(this.transformation, vector);

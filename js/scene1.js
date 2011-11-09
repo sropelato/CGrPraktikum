@@ -15,7 +15,7 @@ $(document).ready(function()
 		
 		function loadResources()
 		{
-			ResourceManager.addRequest("earth", "res/models/planets/earth.moj", "xml");
+			ResourceManager.addRequest("earth", "res/models/universe/earth.moj", "xml");
 			ResourceManager.addDependencies(["earth"], setupScene);
 			ResourceManager.loadAll();
 		}

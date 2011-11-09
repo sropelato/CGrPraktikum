@@ -42,10 +42,12 @@ SimpleTextureMaterial.init = function()
     simpleTextureShaderProgram.textureSampler = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "textureSampler");
     
     simpleTextureShaderProgram.lightDirection = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightDirection");
+    simpleTextureShaderProgram.lightPosition = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightPosition");
     simpleTextureShaderProgram.lightAmbientColor = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightAmbientColor");
     simpleTextureShaderProgram.lightDiffuseColor = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightDiffuseColor");
     
     simpleTextureShaderProgram.ignoreLighting = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "ignoreLighting");
+    simpleTextureShaderProgram.lightType = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightType");
     
     SimpleTextureMaterial.shaderProgram = simpleTextureShaderProgram;
 }
@@ -95,8 +97,11 @@ SimpleTextureMaterial.setMatrixUniforms = function(mvMatrix)
 	if(Mp3D.activeWorld && Mp3D.activeWorld.lights[0])
 	{	
 		Mp3D.gl.uniform3fv(SimpleTextureMaterial.shaderProgram.lightDirection, Mp3D.activeWorld.lights[0].relativeDirection);
+		Mp3D.gl.uniform3fv(SimpleTextureMaterial.shaderProgram.lightPosition, Mp3D.activeWorld.lights[0].relativePosition);
 		Mp3D.gl.uniform3fv(SimpleTextureMaterial.shaderProgram.lightAmbientColor, Mp3D.activeWorld.lights[0].ambientColor);
 		Mp3D.gl.uniform3fv(SimpleTextureMaterial.shaderProgram.lightDiffuseColor, Mp3D.activeWorld.lights[0].diffuseColor);
+		
+    	Mp3D.gl.uniform1i(SimpleTextureMaterial.shaderProgram.lightType, Mp3D.activeWorld.lights[0].type);
 	}
 }
 

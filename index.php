@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="js/mp3d/SimpleTextureMaterial.js"></script>
 		<script type="text/javascript" src="js/scene1.js"></script>
 		<script type="text/javascript" src="js/scene2.js"></script>
+		<script type="text/javascript" src="js/scene3.js"></script>
 	</head>
 	<body>
 		<div id="header"></div>

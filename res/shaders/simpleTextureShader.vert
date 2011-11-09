@@ -7,10 +7,12 @@ uniform mat4 pMatrix;
 uniform mat3 nMatrix;
 
 uniform vec3 lightDirection;
+uniform vec3 lightPosition;
 uniform vec3 lightAmbientColor;
 uniform vec3 lightDiffuseColor;
 
 uniform bool ignoreLighting;
+uniform int lightType;
 
 varying vec2 textureCoord;
 varying vec3 lightedColor;
@@ -23,8 +25,17 @@ void main(void)
 	{
 		textureCoord = vertexTexCoord;
 		vec3 transformedNormal = normalize(nMatrix * vertexNormal);
+		vec3 direction;
 		
-		vec3 direction = normalize(lightDirection * -1.0);
+		if(lightType == 0)
+		{
+			direction = normalize(lightDirection * -1.0);
+		}
+		else
+		{
+			direction = normalize(lightPosition - (mvMatrix * vec4(vertexPosition, 1.0)).xyz);
+		}
+		
 		vec4 ambientColor = vec4(lightAmbientColor, 1.0);
 		vec4 diffuseColor = vec4(lightDiffuseColor, 1.0);
 		

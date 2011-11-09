@@ -24,17 +24,30 @@
 			<string name="color" value="000055"/>
 		</attributes>
 	</material>
-	<material name="Earth">
-		<class name="SimpleTextureMaterial"/>
-		<attributes>
-			<string name="texture" value="res/models/planets/earth.png"/>
-		</attributes>
-	</material>
 	<material name="Skybox1">
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/skybox/skybox1.png"/>
 			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Earth">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/universe/earth.png"/>
+		</attributes>
+	</material>
+	<material name="Sun">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/universe/sun.png"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Moon">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/universe/moon.png"/>
 		</attributes>
 	</material>
 </materials>
