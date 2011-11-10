@@ -94,7 +94,7 @@ $(document).ready(function()
 			
 			// create saturn moon node
 			saturnMoonNode = MojitoLoader.parseMojito(ResourceManager.data.saturnMoon);
-			saturnMoonNode.scale([0.003, 0.003, 0.003]);
+			saturnMoonNode.scale([0.005, 0.005, 0.005]);
 			saturnMoonNode.translate([-3, 3, 3]);
 			saturnMoonOrbitNode.append(saturnMoonNode);
 			
@@ -222,7 +222,7 @@ $(document).ready(function()
 			elapsed *= speedFactor;
 			
 			earthOffsetAngle += Mp3D.degToRad(1/365*360) * elapsed;
-			saturnOffsetAngle += Mp3D.degToRad(0.5/365*360) * elapsed;
+			saturnOffsetAngle += Mp3D.degToRad(0.03/365*360) * elapsed;
 			
 			var earthOffsetX = Math.sin(earthOffsetAngle) * 15;
 			var earthOffsetZ = Math.cos(earthOffsetAngle) * 10;
@@ -239,8 +239,8 @@ $(document).ready(function()
 			saturnOrbitNode.resetTransformation();
 			saturnOrbitNode.translate([saturnOffsetX, 0, saturnOffsetZ]);
 			saturnOrbitNode.rotate(Mp3D.degToRad(24), [1, 0, 0]);
-			saturnNode.rotate(Mp3D.degToRad(2*360) * elapsed, [0, 1, 0]);
-			saturnMoonOrbitNode.rotate(Mp3D.degToRad(1/50*360) * elapsed, [1, 1, 1]);
+			saturnNode.rotate(Mp3D.degToRad(2.3*360) * elapsed, [0, 1, 0]);
+			saturnMoonOrbitNode.rotate(Mp3D.degToRad(1/15*360) * elapsed, [1, 1, 1]);
 
 			Mp3D.drawScene();
 			requestAnimFrame(main);
