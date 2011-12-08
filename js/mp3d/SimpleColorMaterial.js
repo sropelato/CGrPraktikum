@@ -1,6 +1,7 @@
 function SimpleColorMaterial()
 {
 	this.color = null;
+	this.alpha = 1;
 	this.ignoreLighting = false;
 }
 
@@ -39,6 +40,7 @@ SimpleColorMaterial.init = function()
     simpleColorShaderProgram.mvMatrixUniform = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "mvMatrix");
     simpleColorShaderProgram.nMatrixUniform = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "nMatrix");
     simpleColorShaderProgram.color = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "color");
+    simpleColorShaderProgram.alpha = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "alpha");
     
     simpleColorShaderProgram.lightDirection = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "lightDirection");
     simpleColorShaderProgram.lightPosition = Mp3D.gl.getUniformLocation(simpleColorShaderProgram, "lightPosition");
@@ -58,6 +60,11 @@ SimpleColorMaterial.prototype.setColor = function(colorString)
 	var blue = parseInt(colorString.slice(4, 6), 16)/255;
 	
 	this.color = [red, green, blue];
+}
+
+SimpleColorMaterial.prototype.setAlpha = function(alpha)
+{
+	this.alpha = alpha;
 }
 
 SimpleColorMaterial.prototype.setIgnoreLighting = function(ignoreLighting)
@@ -105,7 +112,8 @@ SimpleColorMaterial.setMatrixUniforms = function(mvMatrix)
 SimpleColorMaterial.prototype.drawModel = function(model, mvMatrix)
 {
 	Mp3D.gl.useProgram(SimpleColorMaterial.shaderProgram);
-	SimpleColorMaterial.enable();
+	
+	SimpleColorMaterial.enable();	
 	SimpleColorMaterial.setMatrixUniforms(mvMatrix);
 
 	Mp3D.gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, model.vertexPositionBuffer);
@@ -120,10 +128,25 @@ SimpleColorMaterial.prototype.drawModel = function(model, mvMatrix)
     {
     	Mp3D.gl.uniform3fv(SimpleColorMaterial.shaderProgram.color, this.color);
     }
+    
+    Mp3D.gl.uniform1f(SimpleColorMaterial.shaderProgram.alpha, this.alpha);
     Mp3D.gl.uniform1i(SimpleColorMaterial.shaderProgram.ignoreLighting, this.ignoreLighting);
 
+	if(this.alpha < 1)
+    {
+  		Mp3D.gl.blendFunc(WebGLRenderingContext.SRC_ALPHA, WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
+		Mp3D.gl.enable(WebGLRenderingContext.BLEND);
+		Mp3D.gl.disable(WebGLRenderingContext.DEPTH_TEST);	
+	}
+
  	Mp3D.gl.drawElements(WebGLRenderingContext.TRIANGLES, model.vertexIndexBuffer.numItems, WebGLRenderingContext.UNSIGNED_SHORT, 0);
- 	
+ 
+  	if(this.alpha < 1)
+    {
+		Mp3D.gl.disable(WebGLRenderingContext.BLEND);
+		Mp3D.gl.enable(WebGLRenderingContext.DEPTH_TEST);
+	}
+ 	 	
  	SimpleColorMaterial.disable();
-}
+ }
 

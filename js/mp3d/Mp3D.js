@@ -81,6 +81,8 @@ Mp3D.createWebGLContext = function()
 		glContext.viewportHeight = canvasElement.height;
   		glContext.clearColor(0, 0, 0, 1);
   		glContext.enable(WebGLRenderingContext.DEPTH_TEST);
+		glContext.disable(WebGLRenderingContext.BLEND);
+  		
 	}
 	else
 	{

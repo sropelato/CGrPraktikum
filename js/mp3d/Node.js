@@ -89,6 +89,11 @@ Node.prototype.getAbsoluteTransformation = function()
 	return absoluteTransformation;
 }
 
+Node.prototype.setTransformation = function(transformation)
+{
+	mat4.set(transformation, this.transformation);
+}
+
 Node.prototype.getPosition = function()
 {
 	var position = vec3.create();

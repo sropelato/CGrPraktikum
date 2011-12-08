@@ -22,12 +22,19 @@
 		<class name="SimpleColorMaterial"/>
 		<attributes>
 			<string name="color" value="FF0000"/>
+			<float name="alpha" value="0.9"/>
 		</attributes>
 	</material>
 	<material name="DarkRed">
 		<class name="SimpleColorMaterial"/>
 		<attributes>
 			<string name="color" value="770000"/>
+		</attributes>
+	</material>
+	<material name="Green">
+		<class name="SimpleColorMaterial"/>
+		<attributes>
+			<string name="color" value="00FF00"/>
 		</attributes>
 	</material>
 	<material name="DarkBlue">
@@ -47,6 +54,13 @@
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/skybox/skybox1.png"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Skybox2">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/skybox/skybox2.png"/>
 			<boolean name="ignoreLighting" value="true"/>
 		</attributes>
 	</material>
@@ -79,6 +93,14 @@
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/universe/moon.png"/>
+		</attributes>
+	</material>
+	<material name="Explosion">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion.png"/>
+			<boolean name="alpha" value="0.1"/>
+			<boolean name="useTextureAlpha" value="true"/>
 		</attributes>
 	</material>
 </materials>
