@@ -294,4 +294,13 @@ Mp3D.error = function(text)
 	$("#error").append("<p>"+text+"</p>");
 }
 
+Mp3D.distance = function(vector1, vector2)
+{
+	var xDiff = vector1[0] - vector2[0];
+	var yDiff = vector1[1] - vector2[1];
+	var zDiff = vector1[2] - vector2[2];
+	var dist = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2) + Math.pow(zDiff, 2));
+	
+	return dist;
+}
 

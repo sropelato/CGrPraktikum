@@ -3,7 +3,7 @@ function SimpleTextureMaterial()
 	this.texture = null;
 	this.alpha = 1;
 	this.useTextureAlpha = false;
-	this.ignoreLighting = false;
+	this.blendMode = 0; // 0 = alpha, 1 = multiply
 }
 
 Mp3D.registerMaterialClass(SimpleTextureMaterial);
@@ -43,6 +43,7 @@ SimpleTextureMaterial.init = function()
     simpleTextureShaderProgram.nMatrixUniform = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "nMatrix");
     simpleTextureShaderProgram.textureSampler = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "textureSampler");
     simpleTextureShaderProgram.alpha = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "alpha");
+    simpleTextureShaderProgram.blendMode = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "blendMode");
     simpleTextureShaderProgram.useTextureAlpha = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "useTextureAlpha");
     
     simpleTextureShaderProgram.lightDirection = Mp3D.gl.getUniformLocation(simpleTextureShaderProgram, "lightDirection");
@@ -73,6 +74,16 @@ SimpleTextureMaterial.prototype.setAlpha = function(alpha)
 SimpleTextureMaterial.prototype.setUseTextureAlpha = function(useTextureAlpha)
 {
 	this.useTextureAlpha = useTextureAlpha;
+}
+
+SimpleTextureMaterial.prototype.setBlendMode = function(blendMode)
+{
+	if(blendMode == "alpha")
+		this.blendMode = 0;
+	else if(blendMode == "multiply")
+		this.blendMode = 1;
+	else
+		throw "unknown blend mode '"+blendMode+"'"; 
 }
 
 SimpleTextureMaterial.prototype.setIgnoreLighting = function(ignoreLighting)
@@ -143,21 +154,25 @@ SimpleTextureMaterial.prototype.drawModel = function(model, mvMatrix)
     	Mp3D.gl.uniform1i(SimpleTextureMaterial.shaderProgram.textureSampler, 0);
     }
     
-    
     Mp3D.gl.uniform1f(SimpleTextureMaterial.shaderProgram.alpha, this.alpha);
+	Mp3D.gl.uniform1i(SimpleTextureMaterial.shaderProgram.blendMode, this.blendMode);
 	Mp3D.gl.uniform1i(SimpleTextureMaterial.shaderProgram.useTextureAlpha, this.useTextureAlpha);
 	Mp3D.gl.uniform1i(SimpleTextureMaterial.shaderProgram.ignoreLighting, this.ignoreLighting);
 
-	if(this.alpha < 1 || this.useTextureAlpha)
+	if(this.alpha < 1 || this.useTextureAlpha || this.blendMode != 0)
     {
-    	Mp3D.gl.blendFunc(WebGLRenderingContext.SRC_ALPHA, WebGLRenderingContext.DST_ALPHA);
+    	if(this.blendMode == 1) // multiply
+    		Mp3D.gl.blendFunc(WebGLRenderingContext.SRC_COLOR, WebGLRenderingContext.ONE_MINUS_SRC_COLOR);
+    	else // alpha
+    		Mp3D.gl.blendFunc(WebGLRenderingContext.SRC_ALPHA, WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
+    		
 		Mp3D.gl.enable(WebGLRenderingContext.BLEND);
-		Mp3D.gl.disable(WebGLRenderingContext.DEPTH_TEST);	
+		Mp3D.gl.disable(WebGLRenderingContext.DEPTH_TEST);
 	}
 
  	Mp3D.gl.drawElements(WebGLRenderingContext.TRIANGLES, model.vertexIndexBuffer.numItems, WebGLRenderingContext.UNSIGNED_SHORT, 0);
 
-  	if(this.alpha < 1 || this.useTextureAlpha)
+  	if(this.alpha < 1 || this.useTextureAlpha  || this.blendMode != 0)
     {
 		Mp3D.gl.disable(WebGLRenderingContext.BLEND);
 		Mp3D.gl.enable(WebGLRenderingContext.DEPTH_TEST);

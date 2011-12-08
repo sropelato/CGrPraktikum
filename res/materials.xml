@@ -99,8 +99,10 @@
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/ufo/explosion.png"/>
-			<boolean name="alpha" value="0.1"/>
+			<boolean name="alpha" value="0.3"/>
+			<string name="blendMode" value="multiply"/>
 			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
 		</attributes>
 	</material>
 </materials>

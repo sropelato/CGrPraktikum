@@ -220,6 +220,11 @@ $(document).ready(function()
 			}
 			
 			missileNode.translate2([0, 0, -10000 * elapsed]);
+			
+			if(Mp3D.distance(missileNode.getAbsolutePosition(), enemyNode.getAbsolutePosition()) < 5)
+			{
+				console.log("BOOM!");
+			}
 		
 			//Mp3D.activeWorld.camera.lookAt(spaceshipNode.getAbsolutePosition());
 		
