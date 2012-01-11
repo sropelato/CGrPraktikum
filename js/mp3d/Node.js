@@ -4,6 +4,7 @@ function Node()
 	this.parent = null;
 	this.children = new Array();
 	this.transformation = mat4.create();
+	this.visible = true;
 
 	mat4.identity(this.transformation);
 }
@@ -23,18 +24,21 @@ Node.prototype.assignMaterial = function(material)
 
 Node.prototype.draw = function(parentMVMatrix)
 {	
-	var mvMatrix = mat4.create();
-	mat4.multiply(parentMVMatrix, this.transformation, mvMatrix);
-	
-	if(this.model)
+	if(this.visible)
 	{
-		this.model.draw(mvMatrix);
+		var mvMatrix = mat4.create();
+		mat4.multiply(parentMVMatrix, this.transformation, mvMatrix);
+		
+		if(this.model)
+		{
+			this.model.draw(mvMatrix);
+		}
+		
+		$.each(this.children, function()
+		{
+			this.draw(mvMatrix);
+		});
 	}
-	
-	$.each(this.children, function()
-	{
-		this.draw(mvMatrix);
-	});
 }
 
 Node.prototype.append = function(node)
@@ -74,6 +78,11 @@ Node.prototype.scale = function(vector)
 Node.prototype.rotate = function(angle, axis)
 {
 	mat4.rotate(this.transformation, angle, axis);
+}
+
+Node.prototype.getTransformation = function()
+{
+	return this.transformation;
 }
 
 Node.prototype.getAbsoluteTransformation = function()

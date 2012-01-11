@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<mojito version="0.1">
+	<nodes>
+		<null>
+			<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 -0.0 -0.0 -1.0 -0.0 0.0 0.0 0.0 1.0</transformation>
+			<children>
+				<polygon>
+					<vertices>50.0 200.0 0.0 -50.0 200.0 0.0 50.0 -154.368115358 0.0 -50.0 -154.368115358 0.0</vertices>
+					<uvset>0.25 -0.114079713821 0.75 -0.114079713821 0.75 -1.0 0.25 -1.0</uvset>
+					<normals>0.0 0.0 1.0</normals>
+					<faces>3 2 0 0 0 0 0 1 2 3 0 1 0 0 0 0 2 3</faces>
+					<material>Fire1</material>
+					<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 -200.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</transformation>
+				</polygon>
+				<null>
+					<transformation>1.0 0.0 0.0 0.0 0.0 1.0 0.0 145.631884642 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</transformation>
+				</null>
+			</children>
+		</null>
+	</nodes>
+</mojito>

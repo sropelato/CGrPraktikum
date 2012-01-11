@@ -8,6 +8,7 @@ $(document).ready(function()
 		
 		shipSpeedMax = 14000;
 		shipRollMax = 1.3;
+		missiles = new Array();
 	
 		Mp3D.ready(function()
 		{
@@ -17,6 +18,19 @@ $(document).ready(function()
 
 		function prepare()
 		{
+			// Array Remove - By John Resig (MIT Licensed)
+			Array.prototype.remove = function(from, to)
+			{
+				var rest = this.slice((to || from) + 1 || this.length);
+				this.length = from < 0 ? this.length + from : from;
+				return this.push.apply(this, rest);
+			};
+			Array.prototype.removeObject = function(obj)
+			{
+				var index = $.inArray(obj, this);
+				this.remove(index);
+			}
+		
 			loadResources();
 		}
 		
@@ -24,9 +38,11 @@ $(document).ready(function()
 		{
 			ResourceManager.addRequest("spaceship", "res/models/ufo/ufo.moj", "xml");
 			ResourceManager.addRequest("enemy", "res/models/ufo/ufo2.moj", "xml");
+			ResourceManager.addRequest("fire1", "res/models/ufo/fire.moj", "xml");
+			ResourceManager.addRequest("explosion", "res/models/ufo/explosion.moj", "xml");
 			ResourceManager.addRequest("missile", "res/models/ufo/missile.moj", "xml");
 			ResourceManager.addRequest("skybox", "res/models/skybox/skybox1.moj", "xml");
-			ResourceManager.addDependencies(["spaceship", "enemy", "missile", "skybox"], setupScene);
+			ResourceManager.addDependencies(["spaceship", "enemy", "fire1", "explosion", "missile", "skybox"], setupScene);
 			ResourceManager.loadAll();
 		}	
 		
@@ -49,6 +65,11 @@ $(document).ready(function()
 			skyboxNode.scale([10, 10, 10]);
 			world.nodes.push(skyboxNode);
 			
+			// load explosion bill board
+			explosionNode = MojitoLoader.parseMojito(ResourceManager.data.explosion);
+			explosionNode.visible = false;
+			world.nodes.push(explosionNode);
+			
 			// create main node
 			controlNode = new Node();
 			world.nodes.push(controlNode);
@@ -58,17 +79,31 @@ $(document).ready(function()
 			spaceshipNode.scale([0.01, 0.01, 0.01]);
 			controlNode.append(spaceshipNode);
 			
+			// load thrust fire model
+			fireModelNode = MojitoLoader.parseMojito(ResourceManager.data.fire1);
+			fireModelNode.scale([2, 2, 2]);
+			fireModelNode.translate([0, 10, 0]);
+			
+			// add thrust fire to my ship		
+			fireNode1 = new Node();
+			spaceshipNode.append(fireNode1);
+			fireNode1.append(fireModelNode);
+			
 			// add enemy to scene
 			enemyNode = MojitoLoader.parseMojito(ResourceManager.data.enemy);
 			enemyNode.scale([0.01, 0.01, 0.01]);
 			enemyNode.translate([-10, 0, 10]);
 			world.nodes.push(enemyNode);
 			
+			// add thrust fire to enemy ship
+			fireNode2 = new Node();
+			fireNode2.append(fireModelNode);
+			enemyNode.append(fireNode2);
+			
 			// add missile to scene
 			missileNode = MojitoLoader.parseMojito(ResourceManager.data.missile);
-			missileNode.scale([0.01, 0.01, 0.01]);
+			missileNode.scale([0.006, 0.006, 0.006]);
 			missileNode.translate([0, 0, 0]);
-			world.nodes.push(missileNode);
 			
 			// define a camera
 			var camera = new Camera();
@@ -78,8 +113,9 @@ $(document).ready(function()
 			
 			// append camera to control node
 			controlNode.append(cameraNode);
-			cameraNode.translate([0, 2, -20]);
+			cameraNode.translate([0, 3, -20]);
 			camera.lookAt(spaceshipNode.getAbsolutePosition());
+			cameraNode.translate([0, 2, 0]);
 				
 			startGame();
 		}
@@ -117,6 +153,10 @@ $(document).ready(function()
 			shipYSpeed = 0;
 			shipZSpeed = 0;
 			
+			fireMaterialId = 0;
+			explosionMaterialId = 0;
+			explosionMaterialCounter = 0;
+			
 			timeBefore = 0;
 			main();
 		}
@@ -137,46 +177,46 @@ $(document).ready(function()
 			if(key[37])
 			{
 				// yaw left
-				shipYaw += 1 * elapsed;
+				shipYaw += Mp3D.degToRad(60) * elapsed;
 			}			
 			if(key[39])
 			{
 				// yaw right
-				shipYaw -= 1 * elapsed;
+				shipYaw -= Mp3D.degToRad(60) * elapsed;
 			}
 			if(key[38])
 			{
 				// increase height
-				shipYSpeed += 20 * elapsed;
+				//shipYSpeed += 20 * elapsed;
 			}			
 			if(key[40])
 			{
 				// decreate height
-				shipYSpeed -= 20 * elapsed;
+				//shipYSpeed -= 20 * elapsed;
 			}
 			if(key[65])
 			{
 				// move left
 				shipXSpeed += 40 * elapsed;
-				shipRoll -= 1 * elapsed;
+				shipRoll -= Mp3D.degToRad(60) * elapsed;
 			}
 			if(key[68])
 			{
 				// move right
 				shipXSpeed -= 40 * elapsed;
-				shipRoll += 1 * elapsed;
+				shipRoll += Mp3D.degToRad(60) * elapsed;
 			}
 			if(key[87])
 			{
 				// move forward
 				shipZSpeed += 40 * elapsed;
-				shipPitch += 1 * elapsed;
+				shipPitch += Mp3D.degToRad(60) * elapsed;
 			}
 			if(key[83])
 			{
 				// move backward
 				shipZSpeed -= 40 * elapsed;
-				shipPitch -= 1 * elapsed;
+				shipPitch -= Mp3D.degToRad(60) * elapsed;
 			}
 			if(key[32] && !oldKey[32])
 			{
@@ -185,8 +225,8 @@ $(document).ready(function()
 			oldKey[32] = key[32];
 			
 			// reduce values
-			shipPitch = shipPitch * Math.pow(0.05, elapsed);
-			shipRoll = shipRoll * Math.pow(0.05, elapsed);
+			shipPitch = shipPitch * Math.pow(0.01, elapsed);
+			shipRoll = shipRoll * Math.pow(0.01, elapsed);
 			shipXSpeed = shipXSpeed * Math.pow(0.1, elapsed);	
 			shipYSpeed = shipYSpeed * Math.pow(0.1, elapsed);		
 			shipZSpeed = shipZSpeed * Math.pow(0.1, elapsed);		
@@ -212,21 +252,81 @@ $(document).ready(function()
 			
 			if(launchMissile)
 			{
-				var missileScale = missileNode.getScale();
-				missileNode.setTransformation(controlNode.getAbsoluteTransformation());
-				missileNode.scale(missileScale);
-				missileNode.rotate(Mp3D.degToRad(180), [0, 1, 0]);
-				//missileNode.rotate()
-			}
+				var newMissileNode = new Node();
+				newMissileNode.append(missileNode);
+				Mp3D.activeWorld.nodes.push(newMissileNode);
+
+				newMissileNode.translate(controlNode.getAbsolutePosition());
+				newMissileNode.rotate(shipYaw + Mp3D.degToRad(180), [0, 1, 0]);
+				missiles.push(newMissileNode);
+				
+			}		
 			
-			missileNode.translate2([0, 0, -10000 * elapsed]);
-			
-			if(Mp3D.distance(missileNode.getAbsolutePosition(), enemyNode.getAbsolutePosition()) < 5)
+			// update existing missiles
+			var missilesToBeRemoved = new Array();
+			$.each(missiles, function()
+			{				
+				if(Mp3D.distance(this.getAbsolutePosition(), enemyNode.getAbsolutePosition()) < 5)
+				{
+					explosionNode.resetTransformation();
+					explosionNode.scale([0.05, 0.05, 0.05]);
+					explosionNode.translate(enemyNode.getAbsolutePosition());
+					explosionNode.rotate(shipYaw, [0, 1, 0]);
+					explosionNode.visible = true;
+					
+					explosionMaterialCounter = 100;
+					explosionMaterialId = -1;
+					
+					// repostion enemy
+					var enemyScale = enemyNode.getScale();
+					enemyNode.resetTransformation();
+					enemyNode.scale(enemyScale);
+					enemyNode.translate([(Math.random()-0.5)*100, 0, (Math.random()-0.5)*100]);
+					
+					missilesToBeRemoved.push(this);
+				}
+				else if(Mp3D.distance(this.getAbsolutePosition(), controlNode.getAbsolutePosition()) > 1000)
+				{
+					missilesToBeRemoved.push(this);
+				}
+				this.translate2([0, 0, -50 * elapsed]);
+			});
+			$.each(missilesToBeRemoved, function()
 			{
-				console.log("BOOM!");
+				missiles.removeObject(this);
+				Mp3D.activeWorld.nodes.removeObject(this);
+			});
+			
+			
+			// change material of fire bill boards
+			fireMaterialId++;
+			if(fireMaterialId > 7)
+				fireMaterialId = 0;
+			fireNode1.assignMaterial(Mp3D.materials["Fire"+(fireMaterialId+1)]);
+			
+			// change material of explosion bill boards
+			explosionMaterialCounter++;
+			if(explosionMaterialCounter > 3)
+			{
+				explosionMaterialCounter = 0;
+				explosionMaterialId++;
+				if(explosionMaterialId > 9)
+				{
+					explosionMaterialId = 0;
+					explosionNode.visible = false;
+				}
 			}
-		
-			//Mp3D.activeWorld.camera.lookAt(spaceshipNode.getAbsolutePosition());
+			explosionNode.assignMaterial(Mp3D.materials["Explosion"+(explosionMaterialId+1)]);
+						
+			
+			// rotate enemy's fire bill board
+ 			var fireNode2Scale = fireNode2.getScale();
+			var fireNode2Position = fireNode2.getPosition();
+			fireNode2.resetTransformation();
+			fireNode2.translate(fireNode2Position);
+			fireNode2.scale(fireNode2Scale);
+			fireNode2.rotate(shipYaw, [0, 1, 0]);
+			
 		
 			Mp3D.drawScene();
 			requestAnimFrame(main);

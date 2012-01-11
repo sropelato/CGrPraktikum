@@ -167,7 +167,7 @@ SimpleTextureMaterial.prototype.drawModel = function(model, mvMatrix)
     		Mp3D.gl.blendFunc(WebGLRenderingContext.SRC_ALPHA, WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
     		
 		Mp3D.gl.enable(WebGLRenderingContext.BLEND);
-		Mp3D.gl.disable(WebGLRenderingContext.DEPTH_TEST);
+		//Mp3D.gl.disable(WebGLRenderingContext.DEPTH_TEST);
 	}
 
  	Mp3D.gl.drawElements(WebGLRenderingContext.TRIANGLES, model.vertexIndexBuffer.numItems, WebGLRenderingContext.UNSIGNED_SHORT, 0);

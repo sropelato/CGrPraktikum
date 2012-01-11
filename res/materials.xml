@@ -95,15 +95,199 @@
 			<string name="texture" value="res/models/universe/moon.png"/>
 		</attributes>
 	</material>
+	
 	<material name="Explosion">
 		<class name="SimpleTextureMaterial"/>
 		<attributes>
 			<string name="texture" value="res/models/ufo/explosion.png"/>
-			<boolean name="alpha" value="0.3"/>
+			<boolean name="alpha" value="1"/>
 			<string name="blendMode" value="multiply"/>
 			<boolean name="useTextureAlpha" value="true"/>
 			<boolean name="ignoreLighting" value="true"/>
 		</attributes>
 	</material>
+	
+	<material name="Fire1">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire1.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire2">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire2.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire3">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire3.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire4">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire4.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire5">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire5.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire6">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire6.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire7">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire7.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Fire8">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/fire8.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	
+	<material name="Explosion1">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion1.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion2">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion2.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion3">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion3.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion4">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion4.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion5">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion5.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion6">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion6.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion7">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion7.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion8">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion8.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion9">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion9.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	<material name="Explosion10">
+		<class name="SimpleTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/ufo/explosion10.png"/>
+			<boolean name="alpha" value="0.8"/>
+			<string name="blendMode" value="multiply"/>
+			<boolean name="useTextureAlpha" value="true"/>
+			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	
 </materials>
 

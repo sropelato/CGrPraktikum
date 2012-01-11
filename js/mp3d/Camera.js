@@ -80,7 +80,7 @@ Camera.prototype.lookAt = function(vector)
 		}
 			
 		var relativeNodePosition = this.node.getPosition();
-	
+
 		this.node.resetTransformation();
 		this.node.translate(relativeNodePosition);
 		
@@ -89,6 +89,6 @@ Camera.prototype.lookAt = function(vector)
 	}
 	else
 	{
-		Mp3D.error("Camera need to be attached to a node in order to execute lookAt function.");
+		Mp3D.error("Camera needs to be attached to a node in order to execute lookAt function.");
 	}
 }
