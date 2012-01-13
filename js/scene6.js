@@ -39,7 +39,7 @@ $(document).ready(function()
 			// define a camera
 			var camera = new Camera();
 			cameraNode = new Node();
-				camera.node = cameraNode;
+			camera.node = cameraNode;
 			world.camera = camera;
 			
 			// add torus to scene
