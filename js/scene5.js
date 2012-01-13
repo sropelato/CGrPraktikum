@@ -7,7 +7,6 @@ $(document).ready(function()
 		ignoredKeys = [32, 37, 38, 39, 40];
 		
 		shipSpeedMax = 14000;
-		shipRollMax = 1.3;
 		missiles = new Array();
 	
 		Mp3D.ready(function()
@@ -297,7 +296,6 @@ $(document).ready(function()
 				Mp3D.activeWorld.nodes.removeObject(this);
 			});
 			
-			
 			// change material of fire bill boards
 			fireMaterialId++;
 			if(fireMaterialId > 7)
@@ -306,7 +304,7 @@ $(document).ready(function()
 			
 			// change material of explosion bill boards
 			explosionMaterialCounter++;
-			if(explosionMaterialCounter > 3)
+			if(explosionMaterialCounter > 1)
 			{
 				explosionMaterialCounter = 0;
 				explosionMaterialId++;
@@ -317,7 +315,15 @@ $(document).ready(function()
 				}
 			}
 			explosionNode.assignMaterial(Mp3D.materials["Explosion"+(explosionMaterialId+1)]);
-						
+			
+			// rotate explosion bill board
+			var explosionNodeScale = explosionNode.getScale();
+			var explosionNodePosition = explosionNode.getPosition();
+			explosionNode.resetTransformation();
+			explosionNode.scale(explosionNodeScale);
+			explosionNode.translate(explosionNodePosition);
+			explosionNode.rotate(shipYaw, [0, 1, 0]);
+			
 			
 			// rotate enemy's fire bill board
  			var fireNode2Scale = fireNode2.getScale();

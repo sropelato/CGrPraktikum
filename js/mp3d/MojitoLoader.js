@@ -48,6 +48,8 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 		var verticesArray = new Array();
 		var uvCoordsArray = new Array();
 		var normalsArray = new Array();
+		var tangentsArray = new Array();
+		var bitangentsArray = new Array();
 		var indexArray = new Array();
 		
 		var facesArray = faces.split(" ");
@@ -57,6 +59,67 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 			var vertexIndex = parseInt(facesArray[i+0]);
 			var uvCoordIndex = parseInt(facesArray[i+1]);
 			var normalIndex = parseInt(facesArray[i+2]);
+			
+			var tangent = [0, 0, 0];
+			var bitangent = [0, 0, 0];
+			
+			// calculate tangent and binormal vectors
+			var v0Index = parseInt(facesArray[i+0]);
+			var v1Index = parseInt(facesArray[i+1]);
+			
+			var n0Index = parseInt(facesArray[i+3]);
+			var n1Index = parseInt(facesArray[i+4]);
+			var n2Index = parseInt(facesArray[i+5]);
+			
+			var uv0Index = parseInt(facesArray[i+6]);
+			var uv1Index = parseInt(facesArray[i+7]);
+			
+			var vertex0 = [allVertices[v0Index*3+0], allVertices[v0Index*3+1], allVertices[v0Index*3+2]];
+			var vertex1 = [allVertices[v1Index*3+0], allVertices[v1Index*3+1], allVertices[v1Index*3+2]];
+			
+			var normal0 = [allNormals[n0Index*3+0], allNormals[n0Index*3+1], allNormals[n0Index*3+2]];
+			var normal1 = [allNormals[n1Index*3+0], allNormals[n1Index*3+1], allNormals[n1Index*3+2]];
+			var normal2 = [allNormals[n2Index*3+0], allNormals[n2Index*3+1], allNormals[n2Index*3+2]];
+			
+			var texCoord0 = [allUVCoords[uv0Index*2+0], allUVCoords[uv0Index*2+0]];
+			var texCoord1 = [allUVCoords[uv1Index*2+0], allUVCoords[uv1Index*2+0]];
+			
+			var x1 = vertex1[0] - vertex0[0];
+			var y1 = vertex1[1] - vertex0[1];
+			var z1 = vertex1[2] - vertex0[2];
+			
+			var u1 = texCoord1[0] - texCoord0[0];
+			if(u1 == 0)
+				u1 = 0.000001;
+				
+			var tangent = [x1/u1, y1/u1, z1/u1];
+			var bitangent0 = vec3.create();
+			var bitangent1 = vec3.create();
+			var bitangent2 = vec3.create();
+			
+			vec3.cross(normal0, tangent, bitangent0);
+			vec3.cross(normal1, tangent, bitangent1);
+			vec3.cross(normal2, tangent, bitangent2);
+			
+			tangentsArray.push(tangent[0]);
+			tangentsArray.push(tangent[1]);
+			tangentsArray.push(tangent[2]);
+			tangentsArray.push(tangent[0]);
+			tangentsArray.push(tangent[1]);
+			tangentsArray.push(tangent[2]);
+			tangentsArray.push(tangent[0]);
+			tangentsArray.push(tangent[1]);
+			tangentsArray.push(tangent[2]);
+			
+			bitangentsArray.push(bitangent0[0]);
+			bitangentsArray.push(bitangent0[1]);
+			bitangentsArray.push(bitangent0[2]);
+			bitangentsArray.push(bitangent1[0]);
+			bitangentsArray.push(bitangent1[1]);
+			bitangentsArray.push(bitangent1[2]);
+			bitangentsArray.push(bitangent2[0]);
+			bitangentsArray.push(bitangent2[1]);
+			bitangentsArray.push(bitangent2[2]);
 			
 			for(var j = 0; j < 3; j++)
 			{
@@ -79,7 +142,7 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 				
 				indexArray.push(i/3+0);
 				indexArray.push(i/3+1);
-				indexArray.push(i/3+2);
+				indexArray.push(i/3+2);			
 			}
 		}
 		
@@ -88,6 +151,8 @@ MojitoLoader.parseNode = function(contentNode, parentProperties)
 		model.setVertexPositions(verticesArray);
 		model.setVertexTexCoords(uvCoordsArray);
 		model.setVertexNormals(normalsArray);
+		model.setVertexTangents(tangentsArray);
+		model.setVertexBitangents(bitangentsArray);
 		model.setVertexIndices(indexArray);
 		
 		var material = null;

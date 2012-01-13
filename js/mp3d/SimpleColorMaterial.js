@@ -72,19 +72,19 @@ SimpleColorMaterial.prototype.setIgnoreLighting = function(ignoreLighting)
 	this.ignoreLighting = ignoreLighting;
 }
 
-SimpleColorMaterial.enable = function()
+SimpleColorMaterial.prototype.enable = function()
 {
     Mp3D.gl.enableVertexAttribArray(SimpleColorMaterial.shaderProgram.vertexPositionAttribute);
     Mp3D.gl.enableVertexAttribArray(SimpleColorMaterial.shaderProgram.vertexNormalAttribute);
 }
 
-SimpleColorMaterial.disable = function()
+SimpleColorMaterial.prototype.disable = function()
 {
     Mp3D.gl.disableVertexAttribArray(SimpleColorMaterial.shaderProgram.vertexPositionAttribute);
     Mp3D.gl.disableVertexAttribArray(SimpleColorMaterial.shaderProgram.vertexNormalAttribute);
 }
 
-SimpleColorMaterial.setMatrixUniforms = function(mvMatrix)
+SimpleColorMaterial.prototype.setMatrixUniforms = function(mvMatrix)
 {
 	// set modelview and projection matrix
 	Mp3D.gl.uniformMatrix4fv(SimpleColorMaterial.shaderProgram.pMatrixUniform, false, Mp3D.pMatrix);
@@ -113,8 +113,8 @@ SimpleColorMaterial.prototype.drawModel = function(model, mvMatrix)
 {
 	Mp3D.gl.useProgram(SimpleColorMaterial.shaderProgram);
 	
-	SimpleColorMaterial.enable();	
-	SimpleColorMaterial.setMatrixUniforms(mvMatrix);
+	this.enable();	
+	this.setMatrixUniforms(mvMatrix);
 
 	Mp3D.gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, model.vertexPositionBuffer);
     Mp3D.gl.vertexAttribPointer(SimpleColorMaterial.shaderProgram.vertexPositionAttribute, model.vertexPositionBuffer.itemSize, WebGLRenderingContext.FLOAT, false, 0, 0);
@@ -147,6 +147,6 @@ SimpleColorMaterial.prototype.drawModel = function(model, mvMatrix)
 		Mp3D.gl.enable(WebGLRenderingContext.DEPTH_TEST);
 	}
  	 	
- 	SimpleColorMaterial.disable();
+ 	this.disable();
  }
 

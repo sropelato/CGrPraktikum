@@ -22,7 +22,6 @@
 		<class name="SimpleColorMaterial"/>
 		<attributes>
 			<string name="color" value="FF0000"/>
-			<float name="alpha" value="0.9"/>
 		</attributes>
 	</material>
 	<material name="DarkRed">
@@ -286,6 +285,22 @@
 			<string name="blendMode" value="multiply"/>
 			<boolean name="useTextureAlpha" value="true"/>
 			<boolean name="ignoreLighting" value="true"/>
+		</attributes>
+	</material>
+	
+	<material name="ToonRed">
+		<class name="ToonColorMaterial"/>
+		<attributes>
+			<string name="color" value="FF0000"/>
+		</attributes>
+	</material>
+	
+	<material name="Wall">
+		<class name="NormalTextureMaterial"/>
+		<attributes>
+			<string name="texture" value="res/models/shaderTest/wall.png"/>
+			<string name="normalMap" value="res/models/shaderTest/wall_normal.png"/>
+			<float name="Shininess" value="10.0"/>
 		</attributes>
 	</material>
 	

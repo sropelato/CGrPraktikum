@@ -2,6 +2,8 @@ function Model()
 {
 	this.vertexPositionBuffer = Mp3D.gl.createBuffer();
 	this.vertexNormalBuffer = Mp3D.gl.createBuffer();
+	this.vertexTangentBuffer = Mp3D.gl.createBuffer();
+	this.vertexBitangentBuffer = Mp3D.gl.createBuffer();
 	this.vertexTexCoordBuffer = Mp3D.gl.createBuffer();
 	this.vertexColorBuffer = Mp3D.gl.createBuffer();
 	this.vertexIndexBuffer = Mp3D.gl.createBuffer();
@@ -23,6 +25,22 @@ Model.prototype.setVertexNormals = function(vertexNormals)
     Mp3D.gl.bufferData(Mp3D.gl.ARRAY_BUFFER, new Float32Array(vertexNormals), WebGLRenderingContext.STATIC_DRAW);
     this.vertexNormalBuffer.itemSize = 3;
     this.vertexNormalBuffer.numItems = vertexNormals.length/3;
+}
+
+Model.prototype.setVertexTangents = function(vertexTangents)
+{
+	Mp3D.gl.bindBuffer(Mp3D.gl.ARRAY_BUFFER, this.vertexTangentBuffer);
+    Mp3D.gl.bufferData(Mp3D.gl.ARRAY_BUFFER, new Float32Array(vertexTangents), WebGLRenderingContext.STATIC_DRAW);
+    this.vertexTangentBuffer.itemSize = 3;
+    this.vertexTangentBuffer.numItems = vertexTangents.length/3;
+}
+
+Model.prototype.setVertexBitangents = function(vertexBitangents)
+{
+	Mp3D.gl.bindBuffer(Mp3D.gl.ARRAY_BUFFER, this.vertexBitangentBuffer);
+    Mp3D.gl.bufferData(Mp3D.gl.ARRAY_BUFFER, new Float32Array(vertexBitangents), WebGLRenderingContext.STATIC_DRAW);
+    this.vertexBitangentBuffer.itemSize = 3;
+    this.vertexBitangentBuffer.numItems = vertexBitangents.length/3;
 }
 
 Model.prototype.setVertexTexCoords = function(vertexTexCoords)
